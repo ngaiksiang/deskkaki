@@ -1,0 +1,8 @@
+---
+import { ARTICLES, CATEGORIES } from '../data/site';
+import { u } from '../data/url';
+const { category } = Astro.props;
+const list = ARTICLES.filter(a => !category || a.category === category);
+---
+{list.length ? <div class="grid">{list.map(a => <div class="card"><span class="tag">{CATEGORIES.find(c=>c.slug===a.category)?.name}</span><h3><a class="title" href={u(`/articles/${a.slug}/`)}>{a.title}</a></h3><p class="muted">{a.description}</p><a href={u(`/articles/${a.slug}/`)}>Read the guide →</a></div>)}</div>
+: <p class="muted">Guides for this category are on the way. In the meantime, browse our <a href={u('/')}>latest guides</a>.</p>}

@@ -1,0 +1,11 @@
+---
+import Base from '../../layouts/Base.astro';
+import ArticleList from '../../components/ArticleList.astro';
+import { CATEGORIES } from '../../data/site';
+export function getStaticPaths() { return CATEGORIES.map(c => ({ params: { slug: c.slug }, props: { c } })); }
+const { c } = Astro.props;
+---
+<Base title={`${c.name} guides`} description={c.blurb}>
+<h1>{c.name}</h1><p class="muted">{c.blurb}</p>
+<ArticleList category={c.slug} />
+</Base>

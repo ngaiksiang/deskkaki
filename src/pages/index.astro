@@ -1,0 +1,16 @@
+---
+import Base from '../layouts/Base.astro';
+import ArticleList from '../components/ArticleList.astro';
+import { CATEGORIES, SITE } from '../data/site';
+import { u } from '../data/url';
+---
+<Base>
+<section style="padding:20px 0 28px">
+<h1>Set up a home office that works in Singapore</h1>
+<p style="font-size:19px;max-width:680px" class="muted">{SITE.description} Our guides are research-based: we compare manufacturer specs and local retailer listings, and we're upfront that we haven't hands-on tested everything.</p>
+</section>
+<h2>Latest guides</h2>
+<ArticleList />
+<h2 style="margin-top:40px">Browse by category</h2>
+<div class="grid">{CATEGORIES.map(c => <a class="card" style="text-decoration:none;color:inherit" href={u(`/category/${c.slug}/`)}><h3>{c.name}</h3><p class="muted">{c.blurb}</p></a>)}</div>
+</Base>

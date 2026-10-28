@@ -1,0 +1,12 @@
+---
+import { PRODUCTS, linkFor } from '../data/products';
+const { id, rank, verdict } = Astro.props;
+const p = PRODUCTS[id];
+---
+<div class="card" style="margin:24px 0">
+<h3>{rank && <span class="muted">{rank}. </span>}{p.name}</h3>
+{verdict && <p><strong>{verdict}</strong></p>}
+<slot />
+<p class="muted" style="font-size:15px">{p.price ? <>Price: {p.price} at {p.retailer}, at time of writing ({p.priceSeen}).</> : <>Price: check the current price at {p.retailer}.</>}</p>
+<a class="btn" href={linkFor(p)} rel="sponsored nofollow noopener" target="_blank" data-product={p.id}>Check price at {p.retailer} →</a>
+</div>

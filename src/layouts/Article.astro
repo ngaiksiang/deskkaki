@@ -1,0 +1,19 @@
+---
+import Base from './Base.astro';
+import { ARTICLES, CATEGORIES } from '../data/site';
+import { u } from '../data/url';
+const { slug } = Astro.props;
+const a = ARTICLES.find(x => x.slug === slug)!;
+const cat = CATEGORIES.find(c => c.slug === a.category)!;
+const ld = { '@context':'https://schema.org','@type':'Article',headline:a.title,description:a.description,datePublished:a.date,dateModified:a.date,author:{'@type':'Organization',name:'DeskKaki'} };
+---
+<Base title={a.title} description={a.description} type="article">
+<article>
+<a class="tag" href={u(`/category/${cat.slug}/`)}>{cat.name}</a>
+<h1>{a.title}</h1>
+<p class="muted">Updated {new Date(a.date).toLocaleDateString('en-SG',{day:'numeric',month:'long',year:'numeric'})} · Research-based guide</p>
+<div class="disclosure"><strong>Disclosure:</strong> DeskKaki may earn a commission if you buy through links on this page, at no extra cost to you. We have <strong>not</strong> physically tested these products; this guide is based on manufacturer specifications, Singapore retailer listings and published information. Prices were checked on the date shown and change often. <a href={u('/affiliate-disclosure/')}>Read our full disclosure</a>.</div>
+<slot />
+</article>
+<script type="application/ld+json" set:html={JSON.stringify(ld)} />
+</Base>
